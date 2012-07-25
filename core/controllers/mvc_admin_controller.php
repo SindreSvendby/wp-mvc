@@ -40,7 +40,7 @@ class MvcAdminController extends MvcController {
 	public function create_or_save() {
 		if (!empty($this->params['data'][$this->model->name])) {
 			$object = $this->params['data'][$this->model->name];
-			if (empty($object['id'])) {
+			if (empty($object[$this->model->primary_key])) {
 				$this->model->create($this->params['data']);
 				$id = $this->model->insert_id;
 				$url = MvcRouter::admin_url(array('controller' => $this->name, 'action' => 'edit', 'id' => $id));
