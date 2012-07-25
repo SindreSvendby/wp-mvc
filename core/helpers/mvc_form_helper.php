@@ -26,7 +26,7 @@ class MvcFormHelper extends MvcHelper {
 		}
 		
 		if ($object_id) {
-			$html .= '<input type="hidden" id="'.$this->input_id('hidden_id').'" name="'.$this->input_name('id').'" value="'.$object_id.'" />';
+			$html .= '<input type="hidden" id="'.$this->input_id('hidden_id').'" name="'.$this->input_name($this->model->primary_key).'" value="'.$object_id.'" />';
 		}
 		return $html;
 	}
