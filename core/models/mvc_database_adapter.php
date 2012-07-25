@@ -188,9 +188,12 @@ class MvcDatabaseAdapter {
 	}
 	
 	public function update_all($data, $options=array()) {
+                $set = $this->get_set_sql($data);
+                if (!$set) return; //Nothing to update here
+                
 		$clauses = array(
 			'update' => 'UPDATE '.$this->get_table_reference_sql($options),
-			'set' => 'SET '.$this->get_set_sql($data),
+			'set' => 'SET '.$set,
 			'where' => $this->get_where_sql($options),
 			'limit' => $this->get_limit_sql($options)
 		);
