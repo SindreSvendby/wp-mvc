@@ -212,14 +212,16 @@ class MvcHelper {
                 
                 if (isset($controller->custom_actions))
                 {
-                  foreach($controller->custom_actions as $action)
+                  foreach($controller->custom_actions as $action => $param)
                   {
-                      if (!is_array($action))
-                          $action = array('action' => $action);
+                      if (is_array($param))
+                          $param['action'] = $action;
+                      else
+                          $param = array('action' => $param);
 
-                      $links[] = '<a href="'.MvcRouter::admin_url(array('object' => $object, 'action' => $action['action']))
-                            .'" title="'.(isset($action['title']) ? $action['title'] : '').'">'
-                            .(isset($action['name']) ? $action['name'] : MvcInflector::titleize($action['action'])).'</a>';
+                      $links[] = '<a href="'.MvcRouter::admin_url(array('object' => $object, 'action' => $param['action']))
+                            .'" title="'.(isset($param['title']) ? $param['title'] : '').'">'
+                            .(isset($param['name']) ? $param['name'] : MvcInflector::titleize($param['action'])).'</a>';
                   }
                 }
                 
