@@ -142,6 +142,7 @@ class MvcModel {
 	
 	public function insert($data) {
 		$insert_id = $this->db_adapter->insert($data);
+		$insert_id = $insert_id ? $insert_id : $data[$this->primary_key];
 		$this->insert_id = $insert_id;
 		if ($this->has_post()) {
 			$data[$this->primary_key] = $insert_id;
