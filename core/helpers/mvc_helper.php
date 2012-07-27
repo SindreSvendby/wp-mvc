@@ -234,6 +234,31 @@ class MvcHelper {
 		return '<td>'.$html.'</td>';
 	}
 	
+	public function admin_index_submenu($controller) {
+            if (empty($controller->index_submenu))
+                return '';
+            
+            $html = '';
+            foreach($controller->index_submenu as $action => $param)
+            {
+                if (is_array($param))
+                    $param['action'] = $action;
+                else
+                    $param = array('action' => $param);
+                
+                if (isset($param['url']))
+                    $url = (strncasecmp('http', $param['url'], 4) === 0) ? $param['url'] : get_bloginfo('url').'/'.$param['url'];
+                else
+                    $url = MvcRouter::admin_url(array('controller' => $controller->params['controller'], 'action' => $param['action']));
+                
+                $html .= '
+                  <a href="'.$url.'" class="add-new-h2">'
+                        .(isset($param['label']) ? $param['label'] : MvcInflector::titleize($param['action']).' '.$controller->model->name).'</a>';
+            }
+
+            return $html;
+        }
+	
 	// To do: move this into an MvcUtilities class (?)
 	
 	private function array_flatten($array) {
