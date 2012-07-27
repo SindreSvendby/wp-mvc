@@ -1,4 +1,7 @@
-<h2><?php echo MvcInflector::pluralize_titleize($model->name); ?></h2>
+<h2>
+    <?php echo MvcInflector::pluralize_titleize($model->name); ?>
+    <?php echo $helper->admin_index_submenu($this); ?>
+</h2>
 
 <form id="posts-filter" action="<?php echo MvcRouter::admin_url(); ?>" method="get">
 
