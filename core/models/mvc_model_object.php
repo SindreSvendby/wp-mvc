@@ -34,7 +34,7 @@ class MvcModelObject {
 					$model_name = MvcInflector::camelize(substr($this->post_type, 4));
 					$model = MvcModelRegistry::get_model($model_name);
 					$object = $model->find_one(array(
-						'post_id' => $this->ID,
+						'conditions' => array('post_id' => $this->ID),
 						'recursive' => 0
 					));
 					$this->$property_name = $object;
