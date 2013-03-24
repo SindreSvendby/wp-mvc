@@ -79,17 +79,17 @@ class MvcAdminLoader extends MvcLoader {
 			if (!$hide_menu) {
 				
 				$controller_titleized = MvcInflector::titleize($controller_name);
-		
+
 				$admin_controller_name = 'admin_'.$controller_name;
 			
 				$top_level_handle = 'mvc_'.$controller_name;
-			
+			    $capability = (empty($pages['capability'])) ? 'administrator' : $pages['capability'];
 				$method = $admin_controller_name.'_index';
 				$this->dispatcher->{$method} = create_function('', 'MvcDispatcher::dispatch(array("controller" => "'.$admin_controller_name.'", "action" => "index"));');
 				add_menu_page(
 					$controller_titleized,
 					$controller_titleized,
-					'administrator',
+                    $capability,
 					$top_level_handle,
 					array($this->dispatcher, $method),
 					null,
