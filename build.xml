@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!-- For development just clone the git repo to your wordpress plugin folder.-->
+<!-- For production use build a zip file containing a min of what you need for production use-->
+<project name="wp-mvc" default="dist">
+
+    <!-- ============================================  -->
+    <!-- Target: prepare                               -->
+    <!-- ============================================  -->
+    <target name="prepare">
+        <echo msg="Making directory ./build and remove old zipfile"/>
+        <mkdir dir="./build"/>
+        <delete file="wp_mvc.zip" verbose="true" failonerror="false"/>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: build                                 -->
+    <!-- ============================================  -->
+    <target name="build" depends="prepare">
+        <echo msg="Copying files to build directory..."/>
+        <copy file="./wp_mvc.php" tofile="./build/wp_mvc.php" verbose="true"/>
+        <copy todir="./build/core" >
+            <fileset dir="././core">
+                <include name="**"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- (DEFAULT)  Target: dist                       -->
+    <!-- ============================================  -->
+    <target name="dist" depends="build">
+        <echo msg="Creating archive..."/>
+        <zip destfile="./wpmvc.zip">
+            <fileset dir="./build">
+                <include name="**"/>
+            </fileset>
+        </zip>
+        <echo msg="Cleaning up: removing build dir"/>
+        <delete dir="./build" includeemptydirs="true" verbose="false" failonerror="false"/>
+        <echo msg="Files copied and compressed in build directory OK!"/>
+    </target>
+</project>
