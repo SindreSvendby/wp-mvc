@@ -6,8 +6,9 @@ class MvcPublicLoader extends MvcLoader {
 	
 	public function flush_rewrite_rules($rules) {
 		global $wp_rewrite;
-		
-		$wp_rewrite->flush_rules();
+
+        //TODO: .htaccess was updating all the time. Set flush_rules to soft.
+		$wp_rewrite->flush_rules(false);
 	}
 	
 	public function add_rewrite_rules($rules) {
